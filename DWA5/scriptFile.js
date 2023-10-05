@@ -1,6 +1,21 @@
 
+/** 
+ * @type {HTMLFormElement} - HTML form element
+ */
 const form = document.querySelector("[data-form]");
+
+/**
+ * @type {HTMLElement} - HTML section where the results of the whole app division will be displayed
+ */
 const result = document.querySelector("[data-result]");
+
+/**
+ * A handler that perfoms divison
+ * @typedef {Object} FormDataEntry
+ * @property {string} dividend - value from dividend section in the form.
+ * @property {string} divider - value from divider section the form.
+ * @param {Event} event - The form submission event.
+ */
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -20,7 +35,7 @@ form.addEventListener("submit", (event) => {
   return;
  }
 
- if(divider <= 0 || divider < 0){
+ if(divider < 0 || divider <= 0){
   alert('Division not performed. Invalid number provided. Try again');
   throw new Error('Number is less or equal to zero');
  }
