@@ -1,4 +1,3 @@
-
 /** 
  * @type {HTMLFormElement} - HTML form element
  */
@@ -17,43 +16,33 @@ const result = document.querySelector("[data-result]");
  * @param {Event} event - The form submission event.
  */
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const entries = new FormData(event.target);
-  const { dividend, divider } = Number(Object.fromEntries(entries));
+try {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const entries = new FormData(event.target);
+    const { dividend, divider } = Object.fromEntries(entries);
+    
+      const resultsDiv = dividend / divider;
+      result.innerText = resultsDiv;
   
-  //try {
-    const resultsDiv = dividend / divider;
-
-  if(dividend === '' || divider === ''){
-    alert('Division not performed. Both values are required in inputs. Try again')
-    throw new Error ('Invalid input');
-   }
-
- if(!Number.isInteger(resultsDiv)){
-  result.innerText = Math.floor(resultsDiv);
-  return;
- }
-
- if(divider < 0 || divider <= 0){
-  alert('Division not performed. Invalid number provided. Try again');
-  throw new Error('Number is less or equal to zero');
- }
-
- if(isNaN(dividend) || isNaN(divider)){
-  alert('Something critical went wrong. Please reload the page!')
-  throw new Error('Invalid input: input entereed is not a numerical character')
- }
-
- result.innerText = resultsDiv;
-  /**} catch (error) {
-    result.innerText = error.message;
-
-    if(error.message === 'Division not performed. Invalid number provided. Try again'){
-      console.error(error, error.stack);
-    }else if(error.message === 'Something critical went wrong. Please reload the page!'){
-      document.body.innerHTML = `<h1>${error.message}</h1>`
-    }
-  }*/
+    // check if either entries are empty
+    if(dividend === '' || divider === ''){
+     result.innerText = "Division not perfomed. Both values are required in inputs. Try again";
+     console.error(new Error('Invalid input'));
+     
+    }else if(isNaN(dividend) || isNaN(divider)){ //when user enters characters other than numbers in the entries
+      document.body.innerHTML = "Something critical went wrong. Please reload the page";
+      console.error(new Error('Invalid dividend or divider entered'));
   
-});
+    }else if(divider < 0){ // check if the divider is less than zero
+      result.innerText = "Division not perfomed. Invalid number provided. Try again.";
+      console.error(new Error("Invalid divider provided."))
+     }else {
+    // converts decimals to a single whole number
+        result.innerText = Math.floor(resultsDiv);
+     }
+  
+  });
+} catch (error) {
+  result.innerText = error.message;
+}
