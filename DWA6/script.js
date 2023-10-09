@@ -5,29 +5,34 @@ let matches = books
 
 const starting = document.createDocumentFragment()
 
-for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
-    const element = document.createElement('button')
-    element.classList = 'preview'
-    element.setAttribute('data-preview', id)
+const bookPreview = () =>{
 
-    element.innerHTML = `
-        <img
-            class="preview__image"
-            src="${image}"
-        />
-        
-        <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
-        </div>
-    `
-
-    starting.appendChild(element)
+    for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
+        const element = document.createElement('button')
+        element.classList = 'preview'
+        element.setAttribute('data-preview', id)
+    
+        element.innerHTML = `
+            <img
+                class="preview__image"
+                src="${image}"
+            />
+            
+            <div class="preview__info">
+                <h3 class="preview__title">${title}</h3>
+                <div class="preview__author">${authors[author]}</div>
+            </div>
+        `
+    
+        starting.appendChild(element)
+    }
+    document.querySelector('[data-list-items]').appendChild(starting)
 }
 
-document.querySelector('[data-list-items]').appendChild(starting)
+bookPreview();
 
-const genreHtml = document.createDocumentFragment()
+const genreSearch = () =>{
+    const genreHtml = document.createDocumentFragment()
 const firstGenreElement = document.createElement('option')
 firstGenreElement.value = 'any'
 firstGenreElement.innerText = 'All Genres'
@@ -41,8 +46,12 @@ for (const [id, name] of Object.entries(genres)) {
 }
 
 document.querySelector('[data-search-genres]').appendChild(genreHtml)
+}
 
-const authorsHtml = document.createDocumentFragment()
+genreSearch(); // calling the genreSearch function
+
+const authorSearch = () =>{
+    const authorsHtml = document.createDocumentFragment()
 const firstAuthorElement = document.createElement('option')
 firstAuthorElement.value = 'any'
 firstAuthorElement.innerText = 'All Authors'
@@ -56,6 +65,9 @@ for (const [id, name] of Object.entries(authors)) {
 }
 
 document.querySelector('[data-search-authors]').appendChild(authorsHtml)
+}
+
+authorSearch();// calling the authorSearch function
 
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.querySelector('[data-settings-theme]').value = 'night'
