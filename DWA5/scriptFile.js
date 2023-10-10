@@ -34,7 +34,7 @@ try {
       document.body.innerHTML = "Something critical went wrong. Please reload the page";
       console.error(new Error('Invalid dividend or divider entered'));
   
-    }else if(divider < 0){ // check if the divider is less than zero
+    }else if(divider <= 0){ // check if the divider is less than zero
       result.innerText = "Division not perfomed. Invalid number provided. Try again.";
       console.error(new Error("Invalid divider provided."))
      }else {

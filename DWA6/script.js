@@ -203,58 +203,62 @@ const searchBook = () =>{
 }
 searchBook();// calls the searchBook function to search and filter books 
 
-document.querySelector('[data-list-button]').addEventListener('click', () => {
-    const fragment = document.createDocumentFragment()
-
-    for (const { author, id, image, title } of matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE)) {
-        const element = document.createElement('button')
-        element.classList = 'preview'
-        element.setAttribute('data-preview', id)
+const addMoreBooks = () => {
+    document.querySelector('[data-list-button]').addEventListener('click', () => {
+        const fragment = document.createDocumentFragment()
     
-        element.innerHTML = `
-            <img
-                class="preview__image"
-                src="${image}"
-            />
-            
-            <div class="preview__info">
-                <h3 class="preview__title">${title}</h3>
-                <div class="preview__author">${authors[author]}</div>
-            </div>
-        `
-
-        fragment.appendChild(element)
-    }
-
-    document.querySelector('[data-list-items]').appendChild(fragment)
-    page += 1
-})
-
-document.querySelector('[data-list-items]').addEventListener('click', (event) => {
-    const pathArray = Array.from(event.path || event.composedPath())
-    let active = null
-
-    for (const node of pathArray) {
-        if (active) break
-
-        if (node?.dataset?.preview) {
-            let result = null
-    
-            for (const singleBook of books) {
-                if (result) break;
-                if (singleBook.id === node?.dataset?.preview) result = singleBook
-            } 
+        for (const { author, id, image, title } of matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE)) {
+            const element = document.createElement('button')
+            element.classList = 'preview'
+            element.setAttribute('data-preview', id)
         
-            active = result
-        }
-    }
+            element.innerHTML = `
+                <img
+                    class="preview__image"
+                    src="${image}"
+                />
+                
+                <div class="preview__info">
+                    <h3 class="preview__title">${title}</h3>
+                    <div class="preview__author">${authors[author]}</div>
+                </div>
+            `
     
-    if (active) {
-        document.querySelector('[data-list-active]').open = true
-        document.querySelector('[data-list-blur]').src = active.image
-        document.querySelector('[data-list-image]').src = active.image
-        document.querySelector('[data-list-title]').innerText = active.title
-        document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
-        document.querySelector('[data-list-description]').innerText = active.description
-    }
-})
+            fragment.appendChild(element)
+        }
+    
+        document.querySelector('[data-list-items]').appendChild(fragment)
+        page += 1
+    })
+    
+    document.querySelector('[data-list-items]').addEventListener('click', (event) => {
+        const pathArray = Array.from(event.path || event.composedPath())
+        let active = null
+    
+        for (const node of pathArray) {
+            if (active) break
+    
+            if (node?.dataset?.preview) {
+                let result = null
+        
+                for (const singleBook of books) {
+                    if (result) break;
+                    if (singleBook.id === node?.dataset?.preview) result = singleBook
+                } 
+            
+                active = result
+            }
+        }
+        
+        if (active) {
+            document.querySelector('[data-list-active]').open = true
+            document.querySelector('[data-list-blur]').src = active.image
+            document.querySelector('[data-list-image]').src = active.image
+            document.querySelector('[data-list-title]').innerText = active.title
+            document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
+            document.querySelector('[data-list-description]').innerText = active.description
+        }
+    })
+}
+
+  addMoreBooks();
