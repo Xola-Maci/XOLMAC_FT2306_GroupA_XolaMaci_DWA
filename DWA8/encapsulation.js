@@ -1,5 +1,5 @@
 // the line below will import information from the './data' file
-import { BOOKS_PER_PAGE, authors, genres, books } from "./data.js";
+import { BOOKS_PER_PAGE, authors, genres, books } from "./data7.js";
 
 let matches = books;
 let range = [0, BOOKS_PER_PAGE];
