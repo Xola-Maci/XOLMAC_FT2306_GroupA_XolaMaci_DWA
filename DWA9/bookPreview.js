@@ -1,13 +1,13 @@
 export class BookPreview extends HTMLElement {
-    constructor() {
+    constructor(author,id,image,title) {
       super();
       this.attachShadow({ mode: 'closed' });
   
       // Get attributes
-      const author = this.getAttribute('author');
-      const id = this.getAttribute('id');
-      const image = this.getAttribute('image');
-      const title = this.getAttribute('title');
+      this.author = author;
+      this.id = id;
+      this.image = image;
+      this.title = title;
   
       // Create a button element
       const button = document.createElement('button');
@@ -19,7 +19,7 @@ export class BookPreview extends HTMLElement {
         <img class="preview__image" src="${image}" />
         <div class="preview__info">
           <h3 class="preview__title">${title}</h3>
-          <div class="preview__author">${authors[author]}</div>
+          <div class="preview__author">${author[author]}</div>
         </div>
       `;
   
