@@ -1,6 +1,11 @@
 // Exercise 1 - Using 'forEach' to log names
 
-const names = ['Ashwin', 'Sibongile', 'Jan-Hendrik', 'Sifso', 'Shailen', 'Frikkie'];
+const names = ['Ashwin', 
+'Sibongile', 
+'Jan-Hendrik', 
+'Sifso', 
+'Shailen', 
+'Frikkie'];
 
 names.forEach(name => {
   console.log(name);
@@ -8,7 +13,12 @@ names.forEach(name => {
 
 //Exercise 2 -  Using forEach to log names with matching provinces
 
-const provinces = ['Western Cape', 'Gauteng', 'Northern Cape', 'Eastern Cape', 'KwaZulu-Natal', 'Free State'];
+const provinces = ['Western Cape', 
+'Gauteng', 
+'Northern Cape', 
+'Eastern Cape', 
+'KwaZulu-Natal', 
+'Free State'];
 
 names.forEach((name, index) => {
   console.log(`${name} (${provinces[index]})`);
